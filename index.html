@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ahad's Birthday Surprise 🎂</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box
+    }
+
+    [hidden] {
+      display: none !important
+    }
+
+    body {
+      min-height: 100vh;
+      min-height: 100dvh;
+      background-color: #10051F;
+      background-image: radial-gradient(circle at 50% 45%, rgba(236, 72, 153, .42) 0%, rgba(190, 24, 170, .22) 17%, rgba(126, 34, 206, .12) 35%, transparent 62%);
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-attachment: fixed;
+      font-family: "Poppins", sans-serif;
+      color: #fff;
+      overflow-x: hidden
+    }
+
+    .page {
+      display: none;
+      min-height: 100vh;
+      min-height: 100dvh;
+      align-items: center;
+      justify-content: center;
+      padding: 15px
+    }
+
+    .page.active {
+      display: flex;
+      animation: appear .5s ease
+    }
+
+    @keyframes appear {
+      from {
+        opacity: 0;
+        transform: translateY(15px)
+      }
+
+      to {
+        opacity: 1;
+        transform: none
+      }
+    }
+
+    @keyframes float {
+
+      0%,
+      100% {
+        transform: translateY(0)
+      }
+
+      50% {
+        transform: translateY(-8px)
+      }
+    }
+
+    @keyframes rise {
+      0% {
+        transform: translateY(0) rotate(0);
+        opacity: 0
+      }
+
+      20% {
+        opacity: .7
+      }
+
+      100% {
+        transform: translateY(-110vh) rotate(360deg);
+        opacity: 0
+      }
+    }
+
+    /* shared button */
+    .btn {
+      display: inline-block;
+      padding: 13px 38px;
+      margin-top: 25px;
+      border: none;
+      border-radius: 30px;
+      background: linear-gradient(135deg, #ec4899, #9333ea);
+      color: #fff;
+      font: 600 15px "Poppins", sans-serif;
+      text-decoration: none;
+      cursor: pointer;
+      transition: .3s;
+      box-shadow: 0 4px 15px rgba(236, 72, 153, .3)
+    }
+
+    .btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 20px rgba(236, 72, 153, .5)
+    }
+
+    .btn.full {
+      display: block;
+      width: 100%
+    }
+
+    /* intro */
+    #intro {
+      flex-direction: column;
+      text-align: center
+    }
+
+    #intro img {
+      max-width: min(85%, 320px);
+      height: auto;
+      display: block;
+      margin: 0 auto
+    }
+
+    #intro .small {
+      font-size: 12px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: #ffb8d2;
+      margin-bottom: 10px
+    }
+
+    #intro h1 {
+      font-family: "Great Vibes", cursive;
+      font-size: clamp(46px, 10vw, 72px);
+      color: #ffb6d5;
+      font-weight: 400;
+      margin: 10px 0;
+      text-shadow: 0 0 25px rgba(255, 105, 180, .35)
+    }
+
+    #intro p.para {
+      max-width: 600px;
+      font-size: 14px;
+      line-height: 1.9;
+      color: #f0e7f6;
+      font-weight: 300
+    }
+
+    /* envelope */
+    #envelope {
+      flex-direction: column
+    }
+
+    .cards img {
+      width: min(85%, 380px);
+      height: auto;
+      display: block;
+      margin: 0 auto;
+      cursor: pointer
+    }
+
+    #openEnv {
+      display: none
+    }
+
+    .shadow {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, .65);
+      z-index: 999;
+      overflow-y: auto;
+      padding: 20px 15px;
+      align-items: flex-start;
+      justify-content: center
+    }
+
+    .letter {
+      width: 100%;
+      max-width: 750px;
+      margin: 30px auto;
+      padding: 25px;
+      background: #1e293b;
+      border-radius: 15px;
+      box-shadow: 0 0 30px rgba(236, 72, 153, .2)
+    }
+
+    .letter .text {
+      font-size: 16px;
+      line-height: 1.8;
+      white-space: pre-wrap;
+      overflow-wrap: break-word
+    }
+
+    .letter .hint {
+      font-size: 11px;
+      color: #94a3b8;
+      text-align: right;
+      margin-top: 8px
+    }
+
+    /* quiz cards */
+    .card {
+      width: 100%;
+      max-width: 650px;
+      background: rgba(30, 41, 59, .85);
+      border: 1px solid rgba(236, 72, 153, .25);
+      border-radius: 20px;
+      padding: 35px;
+      box-shadow: 0 0 35px rgba(236, 72, 153, .12);
+      backdrop-filter: blur(12px);
+      text-align: center
+    }
+
+    .card .header {
+      margin-bottom: 28px
+    }
+
+    .card h1 {
+      color: #F9A8D4;
+      font-size: 29px;
+      margin-bottom: 8px
+    }
+
+    .card .header p {
+      color: #D8B4FE;
+      font-size: 12px;
+      letter-spacing: 2px
+    }
+
+    .emoji {
+      font-size: 62px;
+      margin-bottom: 15px;
+      animation: float 2s infinite ease-in-out
+    }
+
+    .pinfo {
+      display: flex;
+      justify-content: space-between;
+      color: #F9A8D4;
+      font-size: 12px;
+      margin-bottom: 10px
+    }
+
+    .bar {
+      height: 7px;
+      background: #382044;
+      border-radius: 20px;
+      overflow: hidden;
+      margin-bottom: 28px
+    }
+
+    .bar div {
+      height: 100%;
+      background: linear-gradient(90deg, #EC4899, #A855F7);
+      transition: width .4s
+    }
+
+    .question {
+      font-size: 22px;
+      line-height: 1.5;
+      margin-bottom: 25px
+    }
+
+    .answers {
+      display: flex;
+      flex-direction: column;
+      gap: 12px
+    }
+
+    .answer {
+      width: 100%;
+      padding: 15px;
+      background: #293449;
+      border: 1px solid #4B3A59;
+      border-radius: 12px;
+      color: #fff;
+      font: 15px "Poppins", sans-serif;
+      text-align: left;
+      cursor: pointer;
+      transition: .25s
+    }
+
+    .answer:hover:not(:disabled) {
+      background: #49304F;
+      border-color: #EC4899;
+      transform: translateY(-2px)
+    }
+
+    .answer.selected {
+      background: #71365F;
+      border-color: #F9A8D4
+    }
+
+    .answer:disabled {
+      cursor: default
+    }
+
+    .feedback {
+      display: none;
+      margin-top: 20px;
+      padding: 16px;
+      background: rgba(236, 72, 153, .12);
+      border: 1px solid rgba(236, 72, 153, .2);
+      border-radius: 12px;
+      color: #FBCFE8;
+      font-size: 14px;
+      line-height: 1.7;
+      animation: appear .4s
+    }
+
+    .res p {
+      color: #F3E8FF;
+      line-height: 1.8;
+      margin-bottom: 18px;
+      font-size: 15px
+    }
+
+    .res h2 {
+      color: #F9A8D4
+    }
+
+    /* final wish */
+    #wish .card {
+      max-width: 700px;
+      padding: 40px 28px;
+      background: rgba(255, 255, 255, .07);
+      border-color: rgba(255, 255, 255, .18);
+      box-shadow: 0 15px 60px rgba(0, 0, 0, .35)
+    }
+
+    #wish .top {
+      font-size: 12px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: #ffb8d2;
+      margin-bottom: 14px
+    }
+
+    #wish h1 {
+      font-family: "Great Vibes", cursive;
+      font-size: clamp(46px, 10vw, 72px);
+      font-weight: 400;
+      color: #ffb6d5;
+      margin: 10px 0
+    }
+
+    #wish .sub {
+      color: #f9d5e5;
+      font-size: 15px
+    }
+
+    #wish .div {
+      width: 100px;
+      height: 2px;
+      background: linear-gradient(to right, transparent, #ff9dc7, transparent);
+      margin: 20px auto
+    }
+
+    #wish .msg {
+      font-size: 14px;
+      line-height: 2;
+      color: #f0e7f6;
+      font-weight: 300
+    }
+
+    #wish strong {
+      color: #ffb6d5
+    }
+
+    #wish .bro {
+      margin-top: 26px;
+      padding: 18px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, .07);
+      border: 1px solid rgba(255, 182, 213, .2)
+    }
+
+    #wish .bro h2 {
+      font-family: "Great Vibes", cursive;
+      color: #ffb6d5;
+      font-size: 34px;
+      font-weight: 400;
+      margin-bottom: 8px
+    }
+
+    #wish .bro p {
+      font-size: 13px;
+      line-height: 1.9;
+      color: #e9dcec
+    }
+
+    #wish .sig {
+      font-family: "Great Vibes", cursive;
+      color: #ffb6d5;
+      font-size: 32px;
+      margin-top: 24px
+    }
+
+    #wish .foot {
+      margin-top: 22px;
+      color: #b9a5c7;
+      font-size: 10px;
+      letter-spacing: 2px
+    }
+
+    .heart {
+      position: fixed;
+      bottom: -30px;
+      animation: rise 7s linear infinite;
+      pointer-events: none;
+      z-index: 5
+    }
+
+    @media(max-width:480px) {
+      .card {
+        padding: 24px 17px
+      }
+
+      .card h1 {
+        font-size: 25px
+      }
+
+      .question {
+        font-size: 19px
+      }
+
+      .answer {
+        font-size: 14px;
+        padding: 13px
+      }
+
+      .letter {
+        padding: 18px 15px
+      }
+
+      .letter .text {
+        font-size: 14px
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- PAGE 1: INTRO -->
+  <section class="page active" id="intro">
+    <div class="small">Made just for you</div>
+    <img src="./Assets/Colorful Confetti Celebration Burst.png" alt="Party popper">
+    <img src="./Assets/Teddy Bear Gift Box Celebration Animation.gif" alt="Celebrating teddy bear">
+    <h1>Happy Birthday Ahad</h1>
+    <p class="para">To my favourite Chote Bache, the guy who stays quiet as if he's paying rent for every single word he
+      speaks. 😂 You're a good person, a decent friend and probably one of the most silent creatures in our class. Don't
+      let that innocent face fool anyone; we know you're something else! Anyway, stay blessed, keep smiling and try
+      talking a little more this year. And never forget, I'm obviously your favourite personality. No arguments allowed!
+      😂❤️</p>
+    <button class="btn" onclick="go('envelope')">Next</button>
+  </section>
+
+  <!-- PAGE 2: ENVELOPE -->
+  <section class="page" id="envelope">
+    <div class="cards">
+      <img id="closedEnv" src="./Assets/Glossy Pink Kawaii Valentine Envelope.png" alt="Closed envelope">
+      <img id="openEnv" src="./Assets/Kawaii Pink Envelope Opening Animation.gif" alt="Opening envelope">
+    </div>
+    <div class="shadow" id="shadow">
+      <div class="letter">
+        <div class="text" id="letterText"></div>
+        <div class="hint" id="hint">tap the letter to skip typing</div>
+        <button class="btn" id="envNext" hidden onclick="go('qna')">Click to go further →</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- PAGE 3 & 4: QUIZZES (rendered by JS) -->
+  <section class="page" id="qna">
+    <div class="card"></div>
+  </section>
+  <section class="page" id="mood">
+    <div class="card"></div>
+  </section>
+
+  <!-- PAGE 5: FINAL WISH -->
+  <section class="page" id="wish">
+    <div class="card">
+      <div class="top">Made with brotherhood &amp; love</div>
+      <div style="font-size:46px">🎉 🎂 🎉</div>
+      <img src="./Assets/Kawaii Chocolate Cherry Birthday Cake.png" alt="Birthday cake"
+        style="width:140px;height:140px;object-fit:contain;display:block;margin:10px auto">
+      <h1>Happy Birthday Ahad!</h1>
+      <p class="sub">To my brother from another mother! ❤️</p>
+      <div class="div"></div>
+      <p class="msg">
+        Well, well, well! Look who's getting older! 😂❤️<br><br>
+        Happy Birthday to my favourite <strong>Chote Bache!</strong> The guy who stays quiet like every single word
+        costs him money. Seriously bro, sometimes I wonder if your microphone is permanently muted! 😂<br><br>
+        Jokes apart, you're genuinely one of those people who make life a little better just by being around. Your
+        friendship means more than these silly jokes could ever express.<br><br>
+        May Allah bless you with endless happiness, success, good health, and everything your heart wishes for. May you
+        always keep that beautiful smile and never lose the person you are.
+      </p>
+      <div class="bro">
+        <h2>Not Just Friends, Brothers. 🤝</h2>
+        <p>We might roast each other, make fun of each other, and act like absolute idiots together... but that's what
+          makes this bond special.<br><br>
+          No matter how life changes, some bonds remain forever. And you're one of those people I'll always wish the
+          best for.<br><br>
+          Here's to more memories, more laughter, more stupid jokes, and a lifetime of brotherhood! ❤️</p>
+      </div>
+      <div class="sig">Stay Blessed, Brother! ❤️</div>
+      <div class="foot">FOREVER BROTHERS • ALWAYS A VIBE</div>
+    </div>
+  </section>
+
+  <script>
+    /* ---------- NAVIGATION ---------- */
+    let heartTimer;
+    function go(id) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+      window.scrollTo(0, 0);
+      if (Q[id]) quiz(id);
+      if (id === 'wish' && !heartTimer) heartTimer = setInterval(heart, 500);
+    }
+    function heart() {
+      const h = document.createElement('div'); h.className = 'heart';
+      h.textContent = ["❤️", "💜", "✨", "💖", "🤝"][Math.floor(Math.random() * 5)];
+      h.style.left = Math.random() * 100 + 'vw';
+      h.style.animationDuration = (5 + Math.random() * 5) + 's';
+      h.style.fontSize = (12 + Math.random() * 15) + 'px';
+      document.body.appendChild(h); setTimeout(() => h.remove(), 10000);
+    }
+
+    /* ---------- ENVELOPE + TYPEWRITER ---------- */
+    const message = `Happiest Birthday, Chote Bacheee! 🎂😭
+
+Well, congratulations on surviving another year of being the most AI-generated human being I've ever encountered. Honestly, sometimes I wonder if you're actually a human or just some ChatGPT beta version that hasn't received the update for facial expressions and hand movements yet. 😭 The way you talk without moving your hands, without changing your expressions, and with that permanently neutral face is genuinely concerning. Like bro, are you having a conversation or processing a software update? At least give us some indication that you're alive. A little hand movement won't cost you extra RAM, I promise.
+
+And let's talk about that face. You could literally be telling the most exciting story in the world, and your expression would still look like someone just told you to wait 5–7 business days. I genuinely cannot tell whether you're happy, sad, confused, or mentally calculating the meaning of life. Your face has fewer updates than Internet Explorer. 😂 But I'll give you one thing: that smile of yours is actually pretty cute. Unfortunately, it appears so rarely that whenever it does, it feels like witnessing a once-in-a-lifetime astronomical event. Please don't overuse it, though. We wouldn't want to crash the system.
+
+Also, I haven't forgotten your legendary statement about me being your favourite personality. HAHAHA. I mean, obviously, you have excellent taste, so I can't really blame you. But the fact that you said it once and gave me enough material to tease you for the rest of your natural life is honestly one of my favourite things. Don't worry, Chote Bache, I'll make sure you never forget that confession. Consider it permanently saved in my memory. No deleting, no editing, no taking it back. 😂
+
+On a serious note (yes, I'm capable of being serious too, unlike your permanently emotionless AI existence), I hope you have an amazing birthday and an even better year ahead. I hope you get everything you're wishing for, achieve all the things you're working towards, and find plenty of reasons to smile. And maybe, just maybe, this year you'll finally unlock some new facial expressions and learn how to use your hands while talking. We have high hopes for your software development.
+
+Anyway, stay the same weird, emotionless, suspiciously robotic person you are. You're genuinely a fun person to have around, even if talking to you sometimes feels like interacting with a very polite customer service chatbot. 😂 Don't let the teasing get to you; it's all part of the package.
+
+Happy Birthday once again, Chote Bache! Have the best day, enjoy yourself, and please remember to smile. Not that fake system-generated smile, the cute one. And don't forget, your favourite personality wishes you a very happy birthday. Honestly, that's probably the best birthday gift you'll receive. You're welcome. 😌❤️`;
+
+    let typed = 0, started = false, typeTimer;
+    const $ = id => document.getElementById(id);
+    function finishTyping() {
+      clearTimeout(typeTimer); $('letterText').textContent = message; typed = message.length;
+      $('hint').hidden = true; $('envNext').hidden = false;
+    }
+    function type() {
+      if (typed >= message.length) return finishTyping();
+      $('letterText').textContent += message[typed++];
+      typeTimer = setTimeout(type, 30);
+    }
+    $('closedEnv').onclick = () => {
+      if (started) return; started = true;
+      $('closedEnv').style.display = 'none'; $('openEnv').style.display = 'block';
+      setTimeout(() => { $('openEnv').style.display = 'none'; $('shadow').style.display = 'flex'; type(); }, 2000);
+    };
+    $('letterText').onclick = () => { if (typed < message.length) finishTyping(); };
+
+    /* ---------- QUIZ ENGINE ---------- */
+    const Q = {
+      qna: {
+        head: ["A Little Test! 💗", "LET'S SEE HOW WELL YOU KNOW YOURSELF"],
+        tag: "🎂😭💗", title: "TEST COMPLETED!", next: "mood",
+        msg: "You survived all 8 questions! Honestly, I wasn't sure you would. 😂 Your answers have officially confirmed that you're one of a kind. Never change, Chote Bacheee! ❤️",
+        extra: "<p>Anyway, no matter what your answers were, you're still the same weird little human I was talking about. 😂❤️</p><h2>Happy Birthday Once Again! 🎉</h2>",
+        qs: [
+          ["First of all, are you actually human? 😭", ["Yes, obviously 😭", "I'm an advanced AI model 🤖", "Still waiting for my software update 💀", "That's classified information 👀"], ["Hmm. Suspicious. Your facial expressions say otherwise. 😂", "I KNEW IT. Finally, an honest answer.", "Your developers really need to hurry up. 😭", "Even your identity is running on airplane mode."]],
+          ["How many facial expressions do you have? 💀", ["A lot actually!", "Two. Happy and loading...", "One permanent expression 😐", "Depends on the Wi-Fi connection."], ["HAHAHA. Name three. I'll wait. 😭", "That's already an impressive upgrade.", "I knew it. The default settings never changed.", "Please restart your face. 😂"]],
+          ["What happens when someone tells you a funny joke? 😂", ["I laugh normally.", "I smile for 0.5 seconds.", "I just stare at them 😐", "I process whether it's funny first."], ["Sure, buddy. We totally believe you.", "A RARE HISTORICAL EVENT!", "The legendary emotionless stare strikes again.", "Your humour processing speed needs improvement. 😭"]],
+          ["Who is your favourite personality? 👀", ["Obviously you.", "Myself, because I'm amazing.", "I refuse to answer.", "Can I change my answer later?"], ["CORRECT ANSWER. Excellent taste. 😌❤️", "A little competition never hurt anyone. 😂", "Your silence is very suspicious.", "NO TAKE-BACKS. It's permanently recorded. 😭"]],
+          ["If your life had a software update, what would you fix first? 🤖", ["Facial expressions", "Hand movements while talking", "My suspiciously robotic personality", "Nothing. I'm perfect."], ["PLEASE INSTALL THIS UPDATE IMMEDIATELY.", "Finally, someone acknowledged the problem.", "At least you're self-aware. 😭", "HAHAHAHA. The confidence is unbelievable."]],
+          ["What's your most dangerous superpower? 😭", ["Making people laugh", "Being effortlessly emotionless", "Disappearing when responsibilities arrive", "Having absolutely no idea what's happening."], ["Okay, that's actually a good one.", "Your face has already mastered this skill.", "A professional at avoiding side quests. 💀", "The most honest answer so far."]],
+          ["How would you describe your birthday personality? 🎂", ["Cute and innocent.", "A walking disaster.", "An underdeveloped AI model.", "A limited edition human."], ["Innocent? That's debatable. 😂", "At least you know yourself.", "THE ACCURACY IS INSANE. 😭", "Limited edition, questionable software."]],
+          ["One last question... Did you enjoy this little test? ❤️", ["Yes, it was amazing!", "It was okay, I guess.", "I want a refund. 😭", "I only came for the birthday wishes."], ["YAYYY! Mission accomplished. ❤️", "I'll accept that. Barely. 😂", "NO REFUNDS. Birthday policy. 💀", "HAHAHA. At least you're honest."]]
+        ]
+      },
+      mood: {
+        head: ["Guess My Mood? 🥺", "LET'S SEE HOW WELL YOU UNDERSTAND ME 💗"],
+        tag: "🥺💗😭", title: "YOU FAILED! 😭", next: "wish",
+        msg: "Congratulations! You completed all 5 questions and STILL haven't figured out that I just want to know what happened. 😭 I hope you finally understand the assignment. 😂❤️",
+        extra: "<p>It's not even about guessing my mood anymore. I just want you to tell me what happened. Tumne abhi tak bataya hi nahi. 🥺</p><h2>Ab bata bhi do naaa! 😭❤️</h2>",
+        qs: [
+          ["First of all, guess my mood right now? 🥺", ["You're happy! 😊", "You're angry! 😡", "You're sad! 🥺", "You're ignoring me! 😭"], ["WRONGGG! Tumne abhi tak nahi btaya wo baat kya thi. Baat nahi krna ab. 😭", "Jab pata he to btate kyu nahi ho kya baat thi? 😭", "Haan to batao na kya hua tha. Aise chup rehne se kya hoga? 🥺", "Achaaa, ab tum mujhe ignore bhi karoge? Wahhh. 😭"], "🥺"],
+          ["What do you think I'm thinking about? 👀", ["Something I said", "Something that happened", "Me, obviously 😌", "Nothing, just overthinking"], ["TO PHIR BATA DO NA KYA BAAT THI. 😭", "Exactlyyy! Aur abhi tak bataya bhi nahi. 🥺", "Haan haan, khushfehmi achi baat hai. 😂", "Overthinking nahi karungi agar tum bata doge. 😭"], "🤔"],
+          ["If I suddenly stop talking, what does that mean? 🥲", ["You're upset with me", "You need some attention", "You're waiting for me to ask", "You don't want to talk"], ["Maybeee. Lekin pehle wo baat to batao. 😭", "Obviously attention chahiye, lekin tum baat bhi to nahi batate. 💗", "FINALLY! Someone understands. Ab pooch bhi lo kya hua. 🥺", "Aisa bhi nahi hai. Bas tum samajh hi nahi rahe. 😭"], "😶"],
+          ["Okay, what should you do to fix my mood? 💗", ["Tell me what happened", "Ask me what's wrong", "Give me a hug", "Just say sorry"], ["YESSS! ITNA TIME LAGA YE SAMAJHNE MEIN? 😭❤️", "Finally! Bas yehi to sunna tha. 🥺", "Hug bhi chahiye, lekin pehle baat batao. 😭", "SORRY KIS BAAT KA? PEHLE BATAO KYA HUA. 😂"], "🥹"],
+          ["Last chance! What do I actually want? 🥺", ["I want to talk about what happened", "I want you to understand me", "I want an apology", "I want you to stop asking questions"], ["YESSS! AB TO BATA DO NA PLEASEEE. 😭❤️", "Then understand this: mujhe wo baat jaan'ni hai. 🥺", "Sorry baad mein, pehle batao kya hua tha. 😭", "HAHAHA nice try. Itni asani se nahi bach sakte. 💀"], "💗"]
+        ]
+      }
+    };
+
+    function quiz(id) {
+      const c = Q[id], el = document.querySelector('#' + id + ' .card'); let i = 0;
+      const show = () => {
+        const [q, a, f, e] = c.qs[i], p = Math.round(i / c.qs.length * 100), last = i === c.qs.length - 1;
+        el.innerHTML = `<div class="header"><h1>${c.head[0]}</h1><p>${c.head[1]}</p></div>
+      ${e ? `<div class="emoji">${e}</div>` : ''}
+      <div class="pinfo"><span>QUESTION ${i + 1} OF ${c.qs.length}</span><span>${p}% COMPLETED</span></div>
+      <div class="bar"><div style="width:${p}%"></div></div>
+      <h2 class="question">${q}</h2><div class="answers"></div><div class="feedback"></div>
+      <button class="btn full" hidden>${last ? 'See Final Result ❤️' : 'Next Question →'}</button>`;
+        const box = el.querySelector('.answers'), fb = el.querySelector('.feedback'), nb = el.querySelector('.btn');
+        a.forEach((t, k) => {
+          const b = document.createElement('button'); b.className = 'answer'; b.textContent = t;
+          b.onclick = () => {
+            box.querySelectorAll('.answer').forEach(x => { x.disabled = true; x.style.opacity = '.6' });
+            b.classList.add('selected'); b.style.opacity = '1';
+            fb.textContent = f[k]; fb.style.display = 'block'; nb.hidden = false;
+          };
+          box.appendChild(b);
+        });
+        nb.onclick = () => { i++; i < c.qs.length ? show() : result(); };
+      };
+      const result = () => {
+        el.innerHTML = `<div class="res"><div class="emoji">${c.tag}</div><h1>${c.title}</h1><p>${c.msg}</p>${c.extra}
+      <button class="btn full" onclick="go('${c.next}')">Next page</button></div>`;
+      };
+      show();
+    }
+  </script>
+</body>
+
+</html>
